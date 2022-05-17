@@ -1,0 +1,827 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" 
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+  rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-storage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <script src="script.js" defer></script>
+   
+    <title>Admin panel</title>
+</head>
+<body>
+   <div class="containeer">
+     <div class="side">
+       <ul>
+         <li>
+          <span class="icon"></span>
+          <span class="title"><h2>Admin panel</h2></span>
+        </li>
+         <li>
+              <span class="icon"><i class="fas fa-home"></i></span>
+              <span class="title" onclick="tri(this)" data-value="card">Tableau de bord</span>
+            
+        </li>
+         <li>
+              <span class="icon"><i class="fas fa-user-graduate"></i></span>
+              <div class="accordion accordion-flush" id="myaccordion">
+                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  <span class="title">Eleves</span>
+                </div>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                  <div class="accordion-body">
+                      <span class="ss" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Inscrire un élève</span><br><br>
+                      <span class="ss" onclick="tri(this)" data-value="dossier">Nos élèves</span><br><br>
+                  </div>
+                </div>  
+               </div>
+
+        </li>
+         <li>
+              <span class="icon"><i class="fas fa-receipt"></i></span>
+              <div class="accordion accordion-flush" id="myaccordion1">
+                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="false" aria-controls="flush-collapse2>
+                  <span class="title">Reçu</span>
+                </div> 
+              <div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#myaccordion1">
+                <div class="accordion-body">
+                    <span class="ss"onclick="tri(this)" data-value="historique">Historique des reçus</span><br><br>
+                </div>
+              </div> 
+              </div>
+
+
+              
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop7" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #333;" >
+        <form action="" id="form_montant">
+        <div class="form-group">
+          <label for="montant">Entrez le montant à payer </label>
+          <input type="number" id="montant" class="form-control" required>
+        </div>
+         <p id="error" style="color: red;display: none;">erreur dans la saisie du montant</p>
+        <input type="button" id="btn_recu"class="btn btn-primary" style="width: 100%;" value="Enregistrer" onclick="registerRecu()">
+      </form>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        </li>
+         <li>  
+              <span class="icon"><i class="fas fa-users"></i></span>
+              <div class="accordion accordion-flush" id="myaccordion2">
+                <div class="accordion-button collapsed" id="colapsemerdeur" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="false" aria-controls="flush-collapse2>
+                <span class="title" >Personnel</span>
+              </div> 
+              <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#myaccordion2">
+                <div class="accordion-body">
+                    <span class="ss" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Professeur</span><br><br>
+                    <span class="ss" data-bs-toggle="modal" data-bs-target="#modalExemplesecretaire">secretaire</span><br><br>
+                    <span class="ss" data-bs-toggle="modal" data-bs-target="#modalExemplecaissiere">caissière</span><br><br>
+                    <span class="ss"onclick="tri(this)" data-value="list_personnel">Notre personnel</span><br><br>
+                </div>
+              </div> 
+            
+              <!-- Modal -->
+<div class="modal fade" id="modalExemplecaissiere" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #333;" >
+        <form action="" id="form_cais">
+        <div class="form-group">
+          <label for="name_ca">Entrez le nom de la caissière (caissier)</label>
+          <input type="text" id="name_ca" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="prenom_ca">Entrez le prénom de la caissière (caissier)</label>
+          <input type="text" id="prenom_ca" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="mail_ca">Entrez une adresse mail</label>
+          <input type="email" id="mail_ca" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="adres_ca">Entrez une adresse</label>
+          <input type="text" id="adres_ca" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="contact_ca">Contact telephonique</label>
+          <input type="tel" id="contact_ca" class="form-control" required>
+        </div>
+        <span>Sexe</span>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sexe" id="femme_ca" value="F">
+          <label class="form-check-label" for="femme_ca">
+            femme
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sexe" id="homme_ca" value="H">
+          <label class="form-check-label" for="homme_ca">
+            homme
+          </label>
+        </div>
+        <input type="button" class="btn btn-primary" style="width: 100%;" onclick="registerCais()" value="Enregistrer">
+      </form>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalExemplesecretaire" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #333;" >
+        <form action="" id="form_sec">
+        <div class="form-group">
+          <label for="name_sec">Entrez le nom du sécrétaire</label>
+          <input type="text" id="name_sec" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="prenom_sec">Entrez le prénom du sécrétaire</label>
+          <input type="text" id="prenom_sec" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="mail_sec">Entrez une adresse mail</label>
+          <input type="email" id="mail_sec" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="adres_sec">Entrez une adresse</label>
+          <input type="text" id="adres_sec" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="contact_sec">Contact telephonique</label>
+          <input type="tel" id="contact_sec" class="form-control" required>
+        </div>
+        <span>Sexe</span>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sexe" id="femme_sec" value="F">
+          <label class="form-check-label" for="femme_sec">
+            femme
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sexe" id="homme_sec" value="H">
+          <label class="form-check-label" for="homme_sec">
+            homme
+          </label>
+        </div>
+        <input type="button" class="btn btn-primary" style="width: 100%;" onclick="registerSec()" value="Enregistrer">
+      </form>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+         
+        </li>
+         <li>
+              <span class="icon"><i class="fas fa-wallet"></i></span>
+              <div class="accordion accordion-flush" id="myaccordion3">
+                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapse4" aria-expanded="false" aria-controls="flush-collapse2>
+                  <span class="title">Année scolaire</span>
+                </div> 
+              <div id="flush-collapse4" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#myaccordion2">
+                <div class="accordion-body">
+                    <span class="ss" onclick="tri(this)" data-value="nos_filiere"> filière</span><br><br>
+                    <span class="ss" onclick="tri(this)" data-value="scolarite"> scolarité</span><br><br>
+                    <span class="ss" data-bs-toggle="modal" data-bs-target="#exampleModal">Niveaux</span><br><br>
+                    <span class="ss"data-bs-toggle="modal" data-bs-target="#staticBackdroprof">Définir professeur</span><br><br>
+                </div>
+              </div> 
+              </div>
+          
+           
+        </li>
+        
+         <li>
+              <span class="icon"><i class="fas fa-user"></i></span>
+              <div class="accordion accordion-flush" id="myaccordion5">
+                <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collape2" aria-expanded="false" aria-controls="flush-collapse2>
+                  <span class="title">Utilisateur</span>
+                </div> 
+              <div id="flush-collape2" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#myaccordion5">
+                <div class="accordion-body">
+                    <span class="ss" onclick="modifier_password()">Modifier le mot de passe</span><br><br>
+                    <span class="ss" onclick="desconnect()">Se déconnecter</span><br><br>
+                </div>
+              </div> 
+              </div>
+        </li>
+       </ul>
+     </div>
+
+     <div class="main">
+       <div class="topbar" >
+         <div class="search">
+           <label><input type="text" id="search" placeholder="Recherche" onkeyup="searchStudent(event)"><span onclick="get_delete()"><i class="bi bi-x-circle" id="closure" ></i></span></label> 
+         </div>
+         <div class="icons">
+            
+         </div>
+       </div>
+        <div id="card" >
+          <div class="cardbox">
+         <div class="card">
+           <div>
+             <div class="numbers" id="inscrit"></div>
+             <div class="cardname">Inscrit cette année</div>
+           </div>
+           <div class="iconbox">
+            <i class="fas fa-graduation-cap"></i>
+           </div>
+         </div>
+         <div class="card">
+           <div>
+             <div class="numbers" id="attente"></div>
+             <div class="cardname">En attente</div>
+           </div>
+           <div class="iconbox">
+            <i class="fas fa-graduation-cap"></i>
+           </div>
+         </div>
+         <div class="card">
+           <div>
+             <div class="numbers" id="ecolage"></div>
+             <div class="cardname">Ecolage total payé cette année</div>
+           </div>
+           <div class="iconbox">
+            <i class="fas fa-dollar-sign"></i>
+           </div>
+           </div>
+          </div>
+
+          <table class="table table-striped" id="nos_eleves">
+            <thead>
+              <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Âge</th>
+                <th scope="col">Filière</th>
+                <th scope="col">Cycle</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Solde</th>
+                <th scope="col">Exclure</th>
+              </tr>
+            </thead>
+            <tbody id="parent"></tbody>
+          </table>
+
+        </div>
+        <div id="table">
+          <div id="dossier" style="display: none;">
+              <h2>Dossier des élèves:</h2>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Prénom</th>
+                  <th scope="col">Items</th>
+                  <th scope="col">Annee inscription</th>
+                </tr>
+              </thead>
+              <tbody id="parent1"></tbody>
+            </table>
+          </div>
+          <div id="historique" style="display: none;">
+            <h2 style="margin-bottom:45px;">Historique des reçus</h2>
+              <div style="margin-bottom: 20px;">
+                <select name="" id="Tri_recu"style="width: 300px; margin: bottom 5px;" class="form-select" aria-label="Default select example"></select>
+                <button class="bg-primary" style=" padding:5px;border: none;color: #fff;" onclick="sddcd()">Valider</button>
+              </div>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Details</th>
+                  </tr>
+                </thead>
+                <tbody id="parent3"></tbody>
+              </table>
+          </div>
+          
+          <div id="list_personnel" style="display: none;">
+                <h2 style="margin-bottom:45px;">Liste du personnel</h2>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Poste</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Connexion</th>
+                    <th scope="col">Item</th>
+                  </tr>
+                </thead>
+                <tbody id="parent4"></tbody>
+              </table>
+          </div>
+          
+          <div id="nos_filiere" style="display: none;">
+                  <h2 style="margin-bottom:45px;">Liste des filières disponibles</h2>
+                <div class="button_item">
+                  <select style="width: 300px;margin-bottom: 10px;margin-left: -80px;" name="" id="anneeScolaire"class="form-select" aria-label="Default select example">
+                    <option value="">Trier par année scolaire</option>
+                  </select>
+                  <div style="display:block;position: relative;left: -40%; margin-bottom: 30px;">
+                      <input id="choose_scol" type="text"  placeholder="Choisir une année scolaire">
+                      <button class="bg-primary" onclick="add_annee()">Valider</button>
+                      <p id="dateError" style="color: red;display: none;">Veuillez entrez une date valide</p>
+                      <p id="sucessInsert" style="color: rgb(24, 165, 24);display: none;">La date  aété ajoutée</p>
+                  </div>
+                  
+                <button style="color: #333;" data-bs-toggle="modal" data-bs-target="#staticBackdroupdate"><i class="fas fa-pen"></i> Modifier une filière</button>
+                <button class="bg-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrofil"><i class="fas fa-plus"></i> Ajouter une filière</button>
+                </div>
+                <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Chargé de filière</th>
+                    <th scope="col">Prix filière</th>
+                  </tr>
+                </thead>
+                <tbody id="parent5"></tbody>
+              </table>
+          </div>
+          <div id="scolarite" style="display: none;" >
+            <select name="" id="tri_scol"style="width: 300px; margin: bottom 5px;" class="form-select" aria-label="Default select example"></select>
+            <div class="cardbox">
+           <div class="card">
+             <div>
+               <div class="numbers" id="inscrit2"></div>
+               <div class="cardname">Inscrit cette année</div>
+             </div>
+             <div class="iconbox">
+              <i class="fas fa-graduation-cap"></i>
+             </div>
+           </div>
+           <div class="card">
+             <div>
+               <div class="numbers" id="attente2"></div>
+               <div class="cardname">En attente</div>
+             </div>
+             <div class="iconbox">
+              <i class="fas fa-graduation-cap"></i>
+             </div>
+           </div>
+           <div class="card">
+             <div>
+               <div class="numbers" id="ecolage2"></div>
+               <div class="cardname">Ecolage total payé cette année</div>
+             </div>
+             <div class="iconbox">
+              <i class="fas fa-dollar-sign"></i>
+             </div>
+             </div>
+           <div class="card">
+             <div>
+               <div class="numbers" id="restant"></div>
+               <div class="cardname">Ecolage total restant cette année</div>
+             </div>
+             <div class="iconbox">
+              <i class="fas fa-dollar-sign"></i>
+             </div>
+             </div>
+           <div class="card">
+             <div>
+               <div class="numbers" id="scolarite_total"></div>
+               <div class="cardname">Scolarité total cette année</div>
+             </div>
+             <div class="iconbox">
+              <i class="fas fa-dollar-sign"></i>
+             </div>
+             </div>
+            </div>
+            <div id="fiche" >
+              <div>
+                <select style="width: 300px;margin-bottom: 10px;"  id="scol_sucursale"class="form-select" aria-label="Default select example">
+                <option value="">Nos sucursale</option>
+              </select>
+              
+              <div>
+                <button class="btn btn-primary" type="submit" onclick="hello()">Afficher détails</button>
+                <div id="details" style="border: 2px solid #333;padding: 10px; display: none;">
+                </div>
+              </div>
+            
+            </div>
+          </div>
+          
+          
+
+
+        </div>
+        
+   </div>
+
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Définir une filière</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" id="form_niv">
+          <div class="form-group">
+            <label for="niv">nom du niveau</label>
+            <input type="text" class="form-control" id="niv">
+          </div>
+          <div class="form-group">
+            <label for="nivprix">définir le prix </label>
+            <input type="number" class="form-control" id="nivprix">
+          </div>
+        </form> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" >Enregistrer</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="staticBackdrofil" tabindex="-1" aria-labelledby="staticBackLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackLabel">Définir une  filière</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #000;">
+      <form action="" id="from_fil">
+        <div class="form-group">
+        <label for="filname">Nom de la filiere</label>
+        <input type="text" class="form-control" id="filname">
+        </div>
+        <div class="form-group">
+          <label for="prixfil">Définir le prix de la filière</label>
+          <input type="number" class="form-control" id="prixfil">
+        </div>
+        </div>
+    </form> 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" onclick="filiere()">Enregistrer</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdroprof" tabindex="-1" aria-labelledby="staticBackLabel" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackLabel">Définir un  niveau</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #000;">
+        <form action="" id="form_chargeFil">
+          <div class="form-group">
+            <select name="" id="filtrprof"class="form-select" aria-label="Default select example">
+              <option value="">Choisr le chargé de filière</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="" id="filtrfiliere"class="form-select" aria-label="Default select example">
+              <option value="">Choisr la filière</option>
+            </select>
+          </div>
+       </div>
+     </form>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" onclick="titulair()">Enregistrer</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdroupdate" tabindex="-1" aria-labelledby="staticBackLabel" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackLabel">Définir un  niveau</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #000;">
+       <form action="" id="form_defFil">
+        <div class="form-group">
+          <select name="" id="filiereupdate"class="form-select" aria-label="Default select example">
+            <option value="">Choisr la filière</option>
+          </select>
+         </div>
+         <div class="form-group">
+          <label for="prixfil">Définir le prix de la filière</label>
+          <input type="number" class="form-control" id="prixfil">
+         </div>
+        </div>
+       </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" onclick="updateFiliere()">Enregistrer</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBack" tabindex="-1" aria-labelledby="staticBackLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #000;">
+        Voulez vous vraiment exclure cet étudiant?
+        <p id="successMessage" style="color:#198754;text-align: center;display: none;">L'élève a été exclus</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="sucessValid" class="btn btn-success"onclick="supprimer_eleve(this)">OUI</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NON</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackModalPersonel" tabindex="-1" aria-labelledby="staticBackLabelPersonel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackLabelPersonel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #000;">
+        Voulez vous vraiment le supprimer ?
+        <p id="successMessageProf" style="color:#198754;text-align: center;display: none;">Le personnel choisi  a été exclus</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="sucessValidProf" class="btn btn-success"onclick="supprimer_prof(this)">OUI</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NON</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: black;">
+        <form class="row g-3" id="form_eleve">
+          <div class="col-md-4">
+            <label for="inputNom" class="form-label">Nom</label>
+            <input type="email" class="form-control" id="inputNom">
+          </div>
+          <div class="col-md-4">
+            <label for="inputPrenom" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="inputPrenom">
+          </div>
+          <div class="col-md-4">
+            <label for="inputAddress" class="form-label">Adresse</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+          </div>
+          <div class="col-md-4">
+            <label for="inputAge" class="form-label">Age</label>
+            <input type="text" class="form-control" id="inputAge" placeholder="18 ans">
+          </div>
+          <div class="col-md-4">
+            <label for="tuteur" class="form-label">Tuteur</label>
+            <input type="text" class="form-control" id="tuteur">
+          </div>
+          <div class="col-md-4">
+            <label for="lieunaiss" class="form-label">Lieu de naissance</label>
+            <input type="text" class="form-control" id="lieunaiss">
+          </div>
+          <div class="col-md-4">
+            <label for="naiss" class="form-label">Date de naissance</label>
+            <input type="date" class="form-control" id="naiss">
+          </div>
+          <div class="col-md-4">
+            <label for="inputFiliere" class="form-label">Filière</label>
+            <select id="inputFiliere" class="form-select">
+              <option value="" >filière</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="inputNiveau" class="form-label">Niveaux</label>
+            <select id="inputNiveau" class="form-select">
+              <option value="">Niveau</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="inputContact" class="form-label">Contact</label>
+            <input type="text" class="form-control" id="inputContact">
+          </div>
+          <div class="col-md-6">
+            <label for="sucursale" class="form-label">Choisir une sucursale</label>
+            <select id="sucursale" class="form-select">
+              <option value="">Choisir une sucursale</option>
+            </select>
+            <select class="form-select" id="reduction">
+              <option value="">Appliquer une réduction</option>
+              <option value="0.15">15%</option>
+              <option value="0.2">20%</option>
+              <option value="0.25">25%</option>
+              <option value="0.3">30%</option>
+              <option value="0.35">35%</option>
+              <option value="0.4">40%</option>
+              <option value="0.45">45%</option>
+              <option value="0.5">50%</option>
+            </select> 
+          </div>
+          <div class="col-md-12">
+            <label for="file">photo de l'élève</label><br>
+            <input type="file" name="" id="file">
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="boy" value="H">
+              <label class="form-check-label" for="boy">
+                Homme
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="girl" value="F">
+              <label class="form-check-label" for="girl">
+                Femme
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" onclick="regsiterStudent()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalDossierPersonnel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dossier du personnel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="personal">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal  fade" id="exampleModalDossierEleve" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dossier des élèves</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="student_dossier">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal  fade" id="staticBackdroperror" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Solder compte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="student_dossier">
+        <p style="color: #fff;" class="bg-danger">Vous ne pouvez pas solder ce compte</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #333;" >
+        <form action="" id="form_prof">
+        <div class="form-group">
+          <label for="name">Entrez le nom du professeur</label>
+          <input type="text" id="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="prenom_prof">Entrez le prénom du professeur</label>
+          <input type="text" id="prenom_prof" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="mail">Entrez une adresse mail</label>
+          <input type="email" id="mail" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="adres">Entrez une adresse</label>
+          <input type="text" id="adres" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact telephonique</label>
+          <input type="tel" id="contact" class="form-control" required>
+        </div>
+        <span>Sexe</span>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sexe" id="femme" value="F">
+          <label class="form-check-label" for="femme">
+            femme
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="sexe" id="homme" value="H">
+          <label class="form-check-label" for="homme">
+            homme
+          </label>
+        <input type="button" class="btn btn-primary" style="width: 100%;" onclick="registerProf()" value="Enregistrer">
+      </form>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

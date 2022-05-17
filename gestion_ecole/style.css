@@ -1,0 +1,231 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    overflow-x: hidden;
+}
+.containeer{
+    display: flex;
+    width: 100%;
+}
+.side{
+  background-color: #003147;
+  color: #fff;
+  transition: 0.5s;
+ 
+}
+
+.btn-close{
+    background-color: #eb2626;
+    opacity: 1;
+    padding: 5px;
+    margin-right:5px;
+}
+.button_item{
+    position: relative;
+    left: 45%;
+    margin-bottom:20px;
+}
+.button_item button{
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+}
+.far{
+padding: 5px;
+background-color: rgb(134, 156, 219);
+position:relative;
+top: 5px;
+border-radius: 3px;
+
+}
+.bi{
+    padding: 2px 4px;
+    background-color: blue;
+    position:relative;
+    top: 5px;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+
+.side ul{
+    list-style: none;
+    position: relative;
+
+}
+#details{
+    position: relative;
+    left:30rem ;
+    top: -5rem;
+}
+.side ul li{
+   position: relative;
+}
+.side ul li:hover{
+   border-bottom: 2px solid #03a9f4;
+}
+.side ul li:nth-child(1){
+    border: none;
+}
+.side ul li:nth-child(4){
+    margin-left: 10px;
+}
+select{
+    margin-top: 10px;
+}
+.side ul li .title{
+   position: relative;
+   display: block;
+   padding: 0 10px;
+   height: 40px;
+   line-height: 40px;
+   white-space: nowrap;
+}
+.main{
+    background: #f5f5f5;
+    flex: 9;
+}
+ .topbar{
+    width: 100%;
+    background: #fff;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search{
+    position: relative;
+    width: 400px;
+    margin: 0 10px;
+}
+.search label{
+    position: relative;
+    width: 100%;
+}
+.search label input{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 5px 20px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.cardbox{
+    position: relative;
+    padding: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-gap: 20px;
+}
+ .card{
+   position: relative;
+   background: #fff;
+   display: flex;
+   justify-content: space-between;
+   padding: 20px;
+   cursor: pointer;
+}
+.icon{
+    position: relative;
+    top: 34px;
+    left: -20px;
+}
+.ss:hover{
+    border-bottom: 2px solid #03a9f4;
+}
+.numbers{
+    position: relative;
+    font-size: 2em;
+    font-weight: 500px;
+}
+.cardname{
+color: #999;
+}
+.iconbox{
+    font-size: 2.5em;
+}
+.accordion-button{
+    color: #fff;
+    background-color: #003147;
+
+}
+span{
+    cursor: pointer;
+}
+div{
+    cursor: pointer;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #0c63e4;
+    background-color: transparent;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+    }
+    .accordion-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 7px;
+        font-size: 1rem;
+        color: #fff;
+        text-align: center;
+        border: 0;
+        border-radius: 0;
+        overflow-anchor: none;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+    }
+    .modal{ z-index: 10000; }
+    #fiche{
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+    #container{
+        width: 350px;
+        margin: auto;
+        position: relative;
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 4px;
+        top: 110px;
+    }
+    .bi-x-circle{
+        background-color: transparent;
+        position: absolute;
+        left: 22rem;
+        top: 0.7rem;
+        display: none;
+    }
+
+    #btn{
+        background-color: rgba(87, 196, 129, 0.726);
+        margin-top: 5px;
+        width: 100%;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        position: relative;
+    }
+    #btn:hover{
+        background-color:  rgba(87, 196, 129, 0.99);
+    }
+    .loader{
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db; 
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 2s linear infinite;
+        position: absolute;
+        left: 45%;
+        bottom: 18%;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
